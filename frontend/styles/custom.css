@@ -1,0 +1,988 @@
+/* ═══════════════════════════════════════════════════════════
+   CivicSense – Government Portal Professional Design System
+   Color Palette: Light Blue (#eff6ff), Slate (#0f172a), 
+   Clean White (#ffffff), Light Blue (#e0f2fe), Emerald (#10b981)
+   ═══════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --navy-dark: #0a2540;
+    --navy-primary: #0f3b82;
+    --navy-royal: #1d4ed8;
+    --navy-sidebar: #0f3ba8;
+    --blue-accent: #2563eb;
+    --blue-light: #eff6ff;
+    --blue-surface: #f0f7ff;
+    --sky-soft: #e0f2fe;
+    --sky-badge: #0284c7;
+    
+    --bg-main: #f8fafc;
+    --card-bg: #ffffff;
+    --card-border: #e2e8f0;
+    
+    --text-title: #0f172a;
+    --text-body: #334155;
+    --text-muted: #64748b;
+    --text-light: #94a3b8;
+    
+    --success: #10b981;
+    --success-bg: #ecfdf5;
+    --warning: #f59e0b;
+    --warning-bg: #fffbeb;
+    --danger: #ef4444;
+    --danger-bg: #fef2f2;
+    --info: #3b82f6;
+    --info-bg: #eff6ff;
+    
+    --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+    --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.07);
+    --shadow-lg: 0 10px 25px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -2px rgba(15, 23, 42, 0.03);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-full: 9999px;
+}
+
+/* ── Base App ────────────────────────────────────────────── */
+.stApp {
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif !important;
+    background-color: var(--bg-main) !important;
+    color: var(--text-body) !important;
+}
+
+header[data-testid="stHeader"] {
+    background-color: transparent !important;
+    z-index: 100;
+}
+
+footer, #MainMenu {
+    display: none !important;
+}
+
+/* Remove default Streamlit padding for clean full-width look */
+.block-container {
+    padding-top: 1.5rem !important;
+    padding-bottom: 2rem !important;
+    max-width: 1350px !important;
+}
+
+/* ── Top Government Header & Navbar ───────────────────────── */
+.gov-top-bar {
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.gov-logo-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.gov-emblem {
+    font-size: 2rem;
+    background: linear-gradient(135deg, #1e40af, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.gov-title-group h1 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--navy-dark);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.gov-title-group p {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin: 0;
+    font-weight: 500;
+}
+
+.gov-nav-links {
+    display: flex;
+    gap: 0.75rem 1rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.gov-nav-links a {
+    color: var(--text-body);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.gov-nav-links a:hover {
+    color: var(--blue-accent);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+#home,
+#services,
+#how-it-works,
+#live-dashboard,
+#contact {
+    scroll-margin-top: 1.5rem;
+}
+
+/* ── Public Landing Page Split Hero ───────────────────────── */
+.hero-split-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 900px) {
+    .hero-split-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.hero-ward-card {
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0f7ff 100%) !important;
+    border: 1.5px solid #bfdbfe !important;
+    border-radius: 20px;
+    padding: 2.2rem;
+    color: #0f172a !important;
+    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.08) !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hero-pill-badge {
+    display: inline-block;
+    background: #dbeafe !important;
+    border: 1px solid #93c5fd !important;
+    color: #1e40af !important;
+    padding: 0.4rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin-bottom: 1.2rem;
+}
+
+.hero-ward-card h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #0f172a !important;
+    margin: 0 0 0.8rem 0;
+    line-height: 1.2;
+}
+
+.hero-ward-card p {
+    color: #334155 !important;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 1.8rem;
+}
+
+.ward-quick-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.ward-quick-item {
+    background: #ffffff !important;
+    border: 1.5px solid #bfdbfe !important;
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    font-size: 0.88rem;
+    font-weight: 700 !important;
+    color: #1e3a8a !important;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.06);
+    transition: all 0.2s ease;
+}
+
+.ward-quick-item:hover {
+    background: #eff6ff !important;
+    border-color: #60a5fa !important;
+    transform: translateY(-2px);
+}
+
+.hero-city-card {
+    background: linear-gradient(135deg, #e0f2fe 0%, #eff6ff 100%) !important;
+    border: 1.5px solid #bfdbfe !important;
+    border-radius: 20px;
+    padding: 2.2rem;
+    color: #0f172a !important;
+    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.08) !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+    min-height: 380px;
+}
+
+.hero-city-card h2 {
+    font-size: 2.3rem;
+    font-weight: 800;
+    color: #0f172a !important;
+    margin: 0 0 0.8rem 0;
+}
+
+.hero-city-card p {
+    color: #334155 !important;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    max-width: 580px;
+    margin-bottom: 1.5rem;
+}
+
+.city-tags-row {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.8rem;
+}
+
+.city-tag {
+    background: #ffffff !important;
+    border: 1.5px solid #bfdbfe !important;
+    padding: 0.4rem 0.9rem;
+    border-radius: 9999px;
+    font-size: 0.82rem;
+    font-weight: 700 !important;
+    color: #1e3a8a !important;
+    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.06);
+}
+
+/* ── Standard Government Portal Cards ─────────────────────── */
+.gov-card {
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--card-border);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 1.25rem;
+}
+
+.gov-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.gov-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 0.75rem;
+}
+
+.gov-card-header h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--navy-dark);
+    margin: 0;
+}
+
+/* ── Metric Cards (Matching Image 3 & Image 6) ────────────── */
+.metric-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.portal-metric-card {
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--card-border);
+    padding: 1.25rem 1.4rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+.metric-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.metric-icon-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    margin-bottom: 0.75rem;
+}
+
+.icon-blue { background: #eff6ff; color: #2563eb; }
+.icon-green { background: #ecfdf5; color: #10b981; }
+.icon-orange { background: #fffbeb; color: #f59e0b; }
+.icon-red { background: #fef2f2; color: #ef4444; }
+
+.metric-title {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: capitalize;
+    margin-bottom: 0.2rem;
+}
+
+.metric-sub {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+}
+
+.metric-number-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+}
+
+.metric-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-title);
+    line-height: 1;
+}
+
+.badge-trend-up {
+    background: #ecfdf5;
+    color: #059669;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 9999px;
+}
+
+.badge-trend-alert {
+    background: #fef2f2;
+    color: #dc2626;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 9999px;
+}
+
+/* ── Circular Gauge Card (Matching Image 3 & Image 6) ──────── */
+.gauge-metric-card {
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--card-border);
+    padding: 1.25rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.gauge-circle {
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    border: 7px solid #10b981;
+    border-top-color: #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--navy-dark);
+    margin-bottom: 0.6rem;
+    transform: rotate(35deg);
+}
+
+.gauge-circle span {
+    transform: rotate(-35deg);
+}
+
+/* ── Timeline Stepper (Matching Image 5) ───────────────────── */
+.timeline-container {
+    position: relative;
+    padding-left: 2.2rem;
+    margin: 1.25rem 0;
+}
+
+.timeline-step {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.timeline-step:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-step::before {
+    content: '';
+    position: absolute;
+    left: -1.75rem;
+    top: 1.4rem;
+    width: 2px;
+    height: calc(100% + 0.2rem);
+    background: #e2e8f0;
+}
+
+.timeline-step:last-child::before {
+    display: none;
+}
+
+.step-marker {
+    position: absolute;
+    left: -2.25rem;
+    top: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.marker-done {
+    background: #10b981;
+    color: #ffffff;
+}
+
+.marker-active {
+    background: #2563eb;
+    color: #ffffff;
+    box-shadow: 0 0 0 4px #dbeafe;
+}
+
+.marker-pending {
+    background: #e2e8f0;
+    color: #94a3b8;
+}
+
+.step-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-title);
+    display: flex;
+    justify-content: space-between;
+}
+
+.step-date {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.step-desc {
+    font-size: 0.84rem;
+    color: var(--text-body);
+    margin-top: 0.2rem;
+}
+
+/* ── Photo Comparison (Before / After Evidence) ────────────── */
+.photo-compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.photo-box {
+    border-radius: 12px;
+    border: 1px solid var(--card-border);
+    overflow: hidden;
+    background: #f8fafc;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+.photo-box img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.photo-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+    letter-spacing: 0.05em;
+}
+
+/* ── Status Badges & Chips ────────────────────────────────── */
+.badge-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0.28rem 0.65rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.status-pending { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+.status-seen { background: #e0f2fe; color: #075985; border: 1px solid #bae6fd; }
+.status-in_progress { background: #e0e7ff; color: #3730a3; border: 1px solid #c7d2fe; }
+.status-resolved { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+
+.badge-urgency {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0.28rem 0.65rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.urgency-critical { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+.urgency-urgent { background: #ffedd5; color: #9a3412; border: 1px solid #fed7aa; }
+.urgency-normal { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
+
+/* ── AI Assistant & Prediction Preview Box (Image 4) ──────── */
+.ai-diagnosis-card {
+    background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+    border: 1px solid #bfdbfe;
+    border-radius: 14px;
+    padding: 1.25rem;
+    margin: 1rem 0;
+}
+
+.ai-header-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #1e40af;
+    margin-bottom: 0.75rem;
+}
+
+.ai-grid-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.ai-metric-item {
+    background: #ffffff;
+    border: 1px solid #dbeafe;
+    border-radius: 10px;
+    padding: 0.65rem 0.85rem;
+}
+
+.ai-metric-item .val {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--navy-dark);
+}
+
+.ai-metric-item .lbl {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* ── Rail Madad / Table Design (Matching Image 7) ──────────── */
+.smart-table-card {
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--card-border);
+    padding: 1.2rem;
+    box-shadow: var(--shadow-sm);
+    margin-top: 1rem;
+}
+
+.table-complaint-row {
+    display: grid;
+    grid-template-columns: 80px 1.5fr 140px 100px 130px 110px;
+    gap: 0.8rem;
+    align-items: center;
+    padding: 0.85rem 0.5rem;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 0.85rem;
+}
+
+.table-complaint-row:hover {
+    background-color: #f8fafc;
+}
+
+.table-complaint-header {
+    font-weight: 700;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+/* ── Progress Bar ─────────────────────────────────────────── */
+.conf-bar-wrapper {
+    width: 100%;
+    background: #e2e8f0;
+    height: 7px;
+    border-radius: 9999px;
+    overflow: hidden;
+    margin-top: 4px;
+}
+
+.conf-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #10b981, #059669);
+    border-radius: 9999px;
+}
+
+/* ── GIS Admin Sidebar Overrides (When inside Dashboard) ──── */
+[data-testid="stSidebar"] {
+    background: #eff6ff !important;
+    color: #0f172a !important;
+    border-right: 1px solid #bfdbfe !important;
+}
+
+[data-testid="stSidebar"] p, 
+[data-testid="stSidebar"] span, 
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] div {
+    color: #0f172a !important;
+}
+
+[data-testid="stSidebar"] .stButton > button {
+    background: #ffffff !important;
+    color: #1e40af !important;
+    border: 1px solid #bfdbfe !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+}
+
+[data-testid="stSidebar"] .stButton > button:hover {
+    background: #dbeafe !important;
+    border-color: #93c5fd !important;
+}
+
+/* Role Card (Authentication View) */
+.auth-role-card {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    height: 100%;
+}
+
+.auth-role-card:hover {
+    border-color: #2563eb;
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.auth-role-card.selected {
+    border-color: #1d4ed8;
+    background: #eff6ff;
+}
+
+.auth-role-icon {
+    font-size: 2.2rem;
+    margin-bottom: 0.6rem;
+}
+
+/* Keep Streamlit text fields and secondary portal buttons readable in dark themes. */
+[data-testid="stWidgetLabel"],
+[data-testid="stWidgetLabel"] p,
+[data-testid="stWidgetLabel"] label {
+    color: #334155 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+[data-testid="stWidgetLabel"] p {
+    font-weight: 600 !important;
+}
+
+[data-testid="stTextInputRootElement"] {
+    background-color: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+}
+
+[data-testid="stTextInputRootElement"] > div {
+    background-color: transparent !important;
+}
+
+[data-testid="stTextInput"] [data-baseweb="input"],
+[data-testid="stTextInput"] [data-baseweb="input"] > div {
+    background-color: #ffffff !important;
+    border-color: #cbd5e1 !important;
+}
+
+[data-testid="stTextInput"] input {
+    background-color: transparent !important;
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
+}
+
+[data-testid="stTextInput"] input::placeholder {
+    color: #64748b !important;
+    opacity: 1;
+}
+
+[data-testid="stTextArea"] [data-baseweb="textarea"],
+[data-testid="stTextArea"] textarea {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
+    border-color: #cbd5e1 !important;
+}
+
+[data-testid="stTextArea"] textarea::placeholder {
+    color: #64748b !important;
+    opacity: 1;
+}
+
+[data-testid="stTextInput"] [data-testid="InputInstructions"] {
+    display: none !important;
+}
+
+[data-testid="stTextArea"] [data-testid="InputInstructions"] {
+    display: none !important;
+}
+
+.stTextInput button {
+    color: #334155 !important;
+    background-color: transparent !important;
+}
+
+/* Clean Button overrides for main content */
+.stButton > button {
+    background-color: #ffffff !important;
+    border: 1.5px solid #2563eb !important;
+    color: #1d4ed8 !important;
+    border-radius: 10px !important;
+    font-weight: 700 !important;
+    padding: 0.55rem 1.25rem !important;
+    transition: all 0.2s ease !important;
+}
+
+.stButton > button:hover {
+    background-color: #eff6ff !important;
+    border-color: #1d4ed8 !important;
+    color: #1e40af !important;
+    transform: translateY(-1px);
+}
+
+.stButton > button p,
+.stButton > button span {
+    color: inherit !important;
+    font-weight: 700 !important;
+}
+
+.stButton > button[kind="secondary"] {
+    background-color: #eff6ff !important;
+    border: 1.5px solid #bfdbfe !important;
+    color: #1e3a8a !important;
+    border-radius: 10px !important;
+    font-weight: 700 !important;
+}
+
+.stButton > button[kind="secondary"]:hover {
+    background-color: #dbeafe !important;
+    border-color: #93c5fd !important;
+    color: #1e3a8a !important;
+}
+
+.stButton > button[kind="primary"] {
+    background-color: #1d4ed8 !important;
+    border: 1.5px solid #1e40af !important;
+    color: #ffffff !important;
+    border-radius: 10px !important;
+    font-weight: 700 !important;
+    padding: 0.55rem 1.25rem !important;
+    box-shadow: 0 2px 8px rgba(29, 78, 216, 0.25) !important;
+}
+
+.stButton > button[kind="primary"]:hover {
+    background-color: #1e40af !important;
+    border-color: #1e3a8a !important;
+    color: #ffffff !important;
+    transform: translateY(-1px);
+}
+
+.stButton > button[kind="primary"] p,
+.stButton > button[kind="primary"] span {
+    color: #ffffff !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ST.TABS & ST.RADIO HIGH-CONTRAST VISIBILITY FIXES
+   Ensures text is always dark, crisp, and 100% visible in both light & dark modes
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Tabs (Auth Screen & Dashboard Tabs) ───────────────────── */
+div[data-baseweb="tab-list"],
+div[data-testid="stTabs"] [role="tablist"] {
+    background-color: transparent !important;
+    border-bottom: 2px solid #e2e8f0 !important;
+    gap: 0.75rem !important;
+    padding-bottom: 2px !important;
+}
+
+button[data-baseweb="tab"],
+div[data-testid="stTabs"] [role="tab"] {
+    background-color: transparent !important;
+    color: #475569 !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    padding: 0.6rem 1rem !important;
+    border-radius: 8px 8px 0 0 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transition: all 0.2s ease !important;
+}
+
+button[data-baseweb="tab"] p,
+button[data-baseweb="tab"] span,
+button[data-baseweb="tab"] div,
+div[data-testid="stTabs"] [role="tab"] p,
+div[data-testid="stTabs"] [role="tab"] span {
+    color: #475569 !important;
+    -webkit-text-fill-color: #475569 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    font-weight: 600 !important;
+}
+
+/* Hovered Tab */
+button[data-baseweb="tab"]:hover,
+div[data-testid="stTabs"] [role="tab"]:hover {
+    color: #1d4ed8 !important;
+    background-color: #eff6ff !important;
+}
+
+button[data-baseweb="tab"]:hover p,
+button[data-baseweb="tab"]:hover span,
+div[data-testid="stTabs"] [role="tab"]:hover p,
+div[data-testid="stTabs"] [role="tab"]:hover span {
+    color: #1d4ed8 !important;
+    -webkit-text-fill-color: #1d4ed8 !important;
+}
+
+/* Selected Tab */
+button[data-baseweb="tab"][aria-selected="true"],
+div[data-testid="stTabs"] [role="tab"][aria-selected="true"] {
+    color: #1d4ed8 !important;
+    border-bottom: 3px solid #1d4ed8 !important;
+    font-weight: 800 !important;
+}
+
+button[data-baseweb="tab"][aria-selected="true"] p,
+button[data-baseweb="tab"][aria-selected="true"] span,
+div[data-testid="stTabs"] [role="tab"][aria-selected="true"] p,
+div[data-testid="stTabs"] [role="tab"][aria-selected="true"] span {
+    color: #1d4ed8 !important;
+    -webkit-text-fill-color: #1d4ed8 !important;
+    font-weight: 800 !important;
+}
+
+/* ── Radio Buttons (Category Selection, Sub-Issues, Nav Bar) ─ */
+div[data-testid="stRadio"] {
+    color: #0f172a !important;
+}
+
+div[data-testid="stRadio"] > label {
+    color: #0f172a !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    margin-bottom: 0.5rem !important;
+    display: block !important;
+}
+
+div[data-testid="stRadio"] [role="radiogroup"] {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+}
+
+div[data-testid="stRadio"] [role="radiogroup"][data-orientation="horizontal"],
+div[data-testid="stRadio"] [role="radiogroup"][aria-orientation="horizontal"] {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 0.75rem 1.25rem !important;
+    align-items: center !important;
+}
+
+div[data-testid="stRadio"] label[data-baseweb="radio"],
+div[data-testid="stRadio"] label {
+    background-color: transparent !important;
+    cursor: pointer !important;
+    padding: 0.35rem 0.6rem !important;
+    border-radius: 8px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    transition: background-color 0.15s ease !important;
+}
+
+div[data-testid="stRadio"] label:hover {
+    background-color: #f1f5f9 !important;
+}
+
+/* Radio item text and markdown containers */
+div[data-testid="stRadio"] label p,
+div[data-testid="stRadio"] label span,
+div[data-testid="stRadio"] label div,
+div[data-testid="stRadio"] [data-testid="stMarkdownContainer"],
+div[data-testid="stRadio"] [data-testid="stMarkdownContainer"] p,
+div[data-testid="stRadio"] [data-testid="stMarkdownContainer"] span {
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: inline-block !important;
+    white-space: normal !important;
+}
+
+/* Selected Radio Option */
+div[data-testid="stRadio"] label:has(input:checked),
+div[data-testid="stRadio"] label[data-checked="true"] {
+    background-color: #eff6ff !important;
+    border-radius: 8px !important;
+}
+
+div[data-testid="stRadio"] label:has(input:checked) p,
+div[data-testid="stRadio"] label:has(input:checked) span,
+div[data-testid="stRadio"] label[data-checked="true"] p,
+div[data-testid="stRadio"] label[data-checked="true"] span {
+    color: #1d4ed8 !important;
+    -webkit-text-fill-color: #1d4ed8 !important;
+    font-weight: 800 !important;
+}

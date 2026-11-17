@@ -1,0 +1,1 @@
+"""CivicSense – frontend pages package."""
