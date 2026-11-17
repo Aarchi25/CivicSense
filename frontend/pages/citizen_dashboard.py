@@ -7,7 +7,7 @@ A dedicated portal with 7 sections:
 
 import streamlit as st
 from frontend import api_client
-from frontend.i18n import t, get_lang, render_language_selector
+from frontend.i18n import t, get_lang
 from frontend.components.ui import (
     render_portal_metric,
     render_complaint_card,
@@ -25,7 +25,7 @@ def render_citizen_dashboard():
     user_name = st.session_state.get("user_name", "Citizen")
 
     # ── Top Bar with Language Selector & Logout ─────────────────
-    nav_c1, nav_c2, nav_c3 = st.columns([3, 1.2, 1])
+    nav_c1, nav_c2 = st.columns([3, 1])
     with nav_c1:
         st.markdown(
             f"""
@@ -40,8 +40,6 @@ def render_citizen_dashboard():
             unsafe_allow_html=True,
         )
     with nav_c2:
-        render_language_selector()
-    with nav_c3:
         if st.button(t("sign_out"), key="c_top_logout", use_container_width=True):
             st.session_state["token"] = None
             st.session_state["role"] = None
@@ -323,7 +321,7 @@ def _render_submit_complaint():
         with st.expander(f"🔮 {t('ai_preview_title')}"):
             test_desc = desc.strip() if desc.strip() else f"{cat_system_name}: {selected_sub_issue}"
             if st.button(t("ai_preview_btn"), key="btn_run_ai_preview"):
-                with st.spinner("AI evaluating category, sentiment, and urgency..."):
+                with st.spinner(t("citizen_ai_evaluating")):
                     preview_res = api_client.preview_complaint_ai(
                         description=test_desc,
                         category=cat_system_name,
@@ -341,7 +339,7 @@ def _render_submit_complaint():
                         st.metric(t("lbl_department"), preview_res.get("assignedAuthority", "Municipal"))
                     st.caption(f"{t('lbl_category')} AI Summary: {preview_res.get('summary', '')}")
                 else:
-                    st.warning("Could not run preview right now.")
+                    st.warning(t("citizen_ai_preview_failed"))
 
         sub_btn = st.button(t("btn_submit_complaint"), type="primary", use_container_width=True)
 
@@ -356,7 +354,7 @@ def _render_submit_complaint():
             else:
                 final_description = f"{cat_system_name}: {selected_sub_issue} reported near {street_loc}, {pincode_ward}."
 
-            with st.spinner("Executing AI classification, urgency calculation, and smart department dispatch..."):
+            with st.spinner(t("citizen_submit_progress")):
                 submit_res = api_client.submit_complaint(
                     description=final_description,
                     location=full_location,

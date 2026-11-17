@@ -7,7 +7,7 @@ Renders styled cards, timeline steppers, gauge meters, and status chips.
 from html import escape
 
 import streamlit as st
-from frontend.i18n import get_lang
+from frontend.i18n import get_lang, translate_department
 
 
 def render_gov_navbar(title: str = "CivicSense", subtitle: str = "Intelligent Civic Complaint Management System"):
@@ -220,40 +220,6 @@ def render_timeline(complaint: dict):
     )
 
 
-def render_photo_compare(before_path: str = "", after_path: str = ""):
-    """Render Before & After photo comparison cards with bilingual support."""
-    is_hi = get_lang() == "hi"
-    base_url = "http://localhost:8000"
-    before_img = f"{base_url}{before_path}" if before_path else "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=500&auto=format&fit=crop&q=60"
-    after_img = f"{base_url}{after_path}" if after_path else ""
-
-    lbl_before = "पहले: नागरिक द्वारा रिपोर्ट" if is_hi else "BEFORE: User Reported"
-    lbl_after = "बाद में: समाधान प्रमाण" if is_hi else "AFTER: Resolution Evidence"
-    lbl_yet = "📷 अभी अपडेट होना बाकी है" if is_hi else "📷 Yet to be updated"
-
-    after_content = (
-        f'<img src="{after_img}" alt="After">'
-        if after_img
-        else f'<div style="height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #94a3b8; font-size: 0.82rem;">{lbl_yet}</div>'
-    )
-
-    st.markdown(
-        f"""
-        <div class="photo-compare-grid">
-            <div class="photo-box">
-                <img src="{before_img}" alt="Before User Photo">
-                <div class="photo-label">{lbl_before}</div>
-            </div>
-            <div class="photo-box">
-                {after_content}
-                <div class="photo-label">{lbl_after}</div>
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-
 def render_ai_preview_card(preview: dict):
     """Render live AI prediction card matching Image 4."""
     cat = preview.get("category", "General Issue")
@@ -313,8 +279,7 @@ def render_complaint_card(complaint: dict, show_summary: bool = True):
     description = str(complaint.get("description") or "")
     location = str(complaint.get("location") or ("स्थान निर्दिष्ट नहीं" if is_hi else "Not specified"))
     summary = str(complaint.get("summary") or "")
-    cid = str(complaint.get("id") or "N/A")
-    dept = str(complaint.get("assignedAuthority") or "")
+    dept = translate_department(str(complaint.get("assignedAuthority") or ""))
     anonymous = complaint.get("anonymous", False)
     created = str(complaint.get("createdAt", ""))[:16]
     
@@ -340,7 +305,6 @@ def render_complaint_card(complaint: dict, show_summary: bool = True):
 
     card_html = (
         '<div class="gov-card"><div class="gov-card-header"><div>'
-        f'<span style="font-family: monospace; font-weight: 700; color: #1d4ed8; font-size: 0.85rem;">#{escape(cid[-8:].upper())}</span>'
         f'<h4 style="margin: 3px 0; color: #0f172a; font-size: 1.05rem;">📍 {escape(location)}</h4>'
         f'</div><div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">{_urgency_badge(urgency)}'
         f'{_status_badge(status)}{priority_html}</div></div>'

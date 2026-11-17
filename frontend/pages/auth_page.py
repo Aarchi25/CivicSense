@@ -5,14 +5,14 @@ Matching Image 2: Separate Login / Registration with Citizen, Admin, and Authori
 
 import streamlit as st
 from frontend import api_client
-from frontend.i18n import t, render_language_selector, get_lang
+from frontend.i18n import t, get_lang, translate_department
 
 
 def render_auth_page():
     """Render the clean, role-based login and registration interface."""
 
-    # ── Top Navigation Bar with Back Button & Language Switcher ──
-    top_c1, top_c2, top_c3 = st.columns([1.5, 3, 1.5])
+    # ── Top Navigation Bar ──────────────────────────────────────
+    top_c1, top_c2 = st.columns([1.5, 3])
     with top_c1:
         if st.button(t("back_to_home"), key="auth_back_home_btn", use_container_width=True):
             st.session_state["view"] = "home"
@@ -26,9 +26,6 @@ def render_auth_page():
             """,
             unsafe_allow_html=True,
         )
-    with top_c3:
-        render_language_selector()
-
     st.markdown("<hr style='margin: 0.3rem 0 1rem 0; border: none; border-top: 1px solid #e2e8f0;'>", unsafe_allow_html=True)
 
     # ── Header ──────────────────────────────────────────────────
@@ -98,7 +95,7 @@ def render_auth_page():
                     if not c_email or not c_pass:
                         st.error("Please enter both email and password." if get_lang() == "en" else "कृपया ईमेल और पासवर्ड दोनों दर्ज करें।")
                     else:
-                        with st.spinner("Verifying credentials..."):
+                        with st.spinner(t("auth_verify_credentials")):
                             res = api_client.login_citizen(c_email.strip(), c_pass)
                         if res and not res.get("error"):
                             st.session_state["token"] = res.get("access_token") or res.get("token")
@@ -108,11 +105,11 @@ def render_auth_page():
                             st.session_state["user_id"] = res.get("user_id") or res.get("id")
                             st.session_state["view"] = "dashboard"
                             st.session_state["active_nav"] = "overview"
-                            st.success(f"Welcome back, {res.get('name')}!")
+                            st.success(t("auth_welcome_back").format(name=res.get("name", "")))
                             st.rerun()
                         else:
                             detail = res.get("detail", "Invalid email or password") if res else "Server unreachable"
-                            st.error(f"Sign in failed: {detail}")
+                            st.error(f"{t('auth_signin_failed')} {detail}")
 
             with tab_register:
                 st.markdown(
@@ -137,7 +134,7 @@ def render_auth_page():
                     elif len(r_pass) < 6:
                         st.error("Password must be at least 6 characters." if get_lang() == "en" else "पासवर्ड कम से कम 6 अक्षरों का होना चाहिए।")
                     else:
-                        with st.spinner("Creating profile and initializing citizen vault..."):
+                        with st.spinner(t("auth_create_citizen_profile")):
                             res = api_client.register_citizen(
                                 name=r_name.strip(),
                                 email=r_email.strip(),
@@ -153,11 +150,11 @@ def render_auth_page():
                             st.session_state["user_id"] = res.get("user_id") or res.get("id")
                             st.session_state["view"] = "dashboard"
                             st.session_state["active_nav"] = "overview"
-                            st.success("Account created successfully! Redirecting...")
+                            st.success(t("auth_account_created"))
                             st.rerun()
                         else:
                             detail = res.get("detail", "Registration failed") if res else "Server unreachable"
-                            st.error(f"Registration failed: {detail}")
+                            st.error(f"{t('auth_registration_failed')} {detail}")
 
             with tab_forgot:
                 st.markdown(f"<p style='color: #64748b; font-size: 0.88rem;'>{t('forgot_subtext')}</p>", unsafe_allow_html=True)
@@ -244,20 +241,25 @@ def render_auth_page():
 
             if authority_submitted:
                 if not auth_email or not auth_pass:
-                    st.error("Please enter your departmental officer credentials.")
+                    st.error(t("auth_authority_credentials"))
                 else:
-                    with st.spinner("Connecting to department dispatch network..."):
+                    with st.spinner(t("auth_authority_connecting")):
                         res = api_client.login_authority(auth_email.strip(), auth_pass)
                     if res and not res.get("error"):
                         st.session_state["token"] = res.get("access_token") or res.get("token")
                         st.session_state["role"] = "authority"
-                        st.session_state["user_name"] = res.get("name", "Authority Officer")
+                        st.session_state["user_name"] = res.get("name", t("auth_officer_default"))
                         st.session_state["user_email"] = auth_email.strip()
                         st.session_state["user_id"] = res.get("user_id") or res.get("id")
-                        st.session_state["department"] = res.get("department")
+                        st.session_state["department"] = res.get("department") or ""
                         st.session_state["view"] = "dashboard"
                         st.session_state["active_nav"] = "overview"
-                        st.success(f"Welcome, Officer! Dept: {res.get('department')}")
+                        st.success(
+                            t("auth_department_welcome").format(
+                                name=res.get("name", t("auth_officer_default")),
+                                department=translate_department(res.get("department") or t("auth_department_default")),
+                            )
+                        )
                         st.rerun()
                     else:
                         detail = res.get("detail", "Invalid departmental credentials") if res else "Server unreachable"

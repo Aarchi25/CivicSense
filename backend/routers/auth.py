@@ -117,6 +117,7 @@ async def login_authority(body: AuthorityLogin):
         role="authority",
         name=user["name"],
         user_id=user_id,
+        department=user.get("department"),
     )
 
 

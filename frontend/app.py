@@ -17,7 +17,7 @@ import streamlit as st
 
 # Must be the first Streamlit command
 st.set_page_config(
-    page_title="CivicSense – AI Public Grievance Portal",
+    page_title="CivicSense – Complaints",
     page_icon="🏛️",
     layout="wide",
     initial_sidebar_state="collapsed",

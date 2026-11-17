@@ -17,7 +17,6 @@ MESSAGES = {
         "sign_in": "Sign In",
         "register": "Register",
         "sign_out": "Sign Out",
-        "lang_selector": "Language / भाषा",
         "welcome": "Welcome back",
         "verified_citizen": "Verified Citizen",
         "citizen_services_portal": "Citizen Services Portal",
@@ -198,6 +197,26 @@ MESSAGES = {
         "profile_encryption": "Security Encryption",
         "profile_encryption_val": "SHA-256 JWT Token Active",
 
+        # Admin Dashboard
+        "admin_console_title": "Administrator Console",
+        "admin_console_sub": "Manage complaints, departments, and public reports",
+        "admin_gis_title": "GIS Overview",
+        "admin_gis_sub": "Live view of complaints, priorities, and resolution progress",
+        "admin_priority_queue": "Priority Queue",
+        "admin_priority_queue_sub": "Complaints needing attention, ordered by urgency",
+        "admin_smart_class_title": "Smart Classification",
+        "admin_smart_class_sub": "Review AI classification and complaint priority",
+        "admin_total": "Total Complaints",
+        "admin_awaiting": "Awaiting Action",
+        "admin_in_prog": "In Progress",
+        "admin_high_priority": "High Priority",
+        "admin_res_rate": "Resolution Rate",
+        "admin_chart_daily": "Daily Complaints",
+        "admin_chart_cat": "Complaints by Category",
+        "admin_reg": "Registered Complaints",
+        "admin_open": "Open Complaints",
+        "admin_critical_urg": "Critical / Urgent",
+
         # Authority Dashboard
         "auth_dept_total": "Department Total",
         "auth_pending_review": "Pending Review",
@@ -238,8 +257,51 @@ MESSAGES = {
         "auth_id_reveal": "4. Request Identity Reveal",
         "auth_btn_req_identity": "Request Identity Verification",
         "auth_id_dispatched": "Identity reveal request dispatched to citizen.",
-        "auth_action_title": "Grievance Action & Remediation Workbench",
-        "auth_action_sub": "Update investigation progress, log field notes, and upload resolution proof",
+        "auth_department_welcome": "Welcome, {name} · {department}",
+        "auth_officer_default": "Department Officer",
+        "auth_department_default": "Department",
+        "auth_error_prefix": "Error:",
+        "auth_nav_queue": "📋 Department Queue",
+        "auth_nav_actions": "🔧 Action & Resolution",
+        "auth_queue_error": "Unable to load the department queue.",
+        "auth_workbench_error": "Unable to load the resolution workbench.",
+        "auth_filter_status": "Status",
+        "auth_filter_priority": "Priority",
+        "auth_filter_all": "All",
+        "auth_urgency_critical": "Critical",
+        "auth_urgency_urgent": "Urgent",
+        "auth_urgency_normal": "Normal",
+        "auth_queue_count": "Showing {count} complaints",
+        "auth_queue_order": "Ordered by urgency, score, and submission date; resolved complaints are last.",
+        "auth_status_pending": "Pending",
+        "auth_status_seen": "Seen",
+        "auth_status_in_progress": "In Progress",
+        "auth_status_resolved": "Resolved",
+        "auth_status_sequence_hint": "Statuses must be updated in order.",
+        "auth_status_final": "This complaint is already resolved.",
+        "auth_status_saving": "Updating status...",
+        "auth_note_placeholder": "Enter inspection notes",
+        "auth_note_saving": "Saving inspection note...",
+        "auth_note_saved": "Inspection note added.",
+        "auth_note_failed": "Could not add the inspection note.",
+        "auth_note_empty_error": "Enter a note before submitting.",
+        "auth_resolution_placeholder": "Describe the completed repair.",
+        "auth_evidence_uploading": "Saving resolution evidence...",
+        "auth_evidence_failed": "Could not save resolution evidence.",
+        "auth_identity_request_explainer": "This complaint was anonymous. Request the citizen's identity only if needed for access to the site.",
+        "auth_identity_requested": "Identity request sent to the citizen.",
+        "auth_identity_failed": "Could not send the identity request.",
+        "auth_verify_credentials": "Verifying credentials...",
+        "auth_welcome_back": "Welcome back, {name}!",
+        "auth_signin_failed": "Sign in failed:",
+        "auth_create_citizen_profile": "Creating profile and initializing citizen vault...",
+        "auth_account_created": "Account created successfully! Redirecting...",
+        "auth_registration_failed": "Registration failed:",
+        "auth_authority_credentials": "Please enter your departmental officer credentials.",
+        "auth_authority_connecting": "Connecting to department dispatch network...",
+        "citizen_ai_evaluating": "AI evaluating category, sentiment, and urgency...",
+        "citizen_ai_preview_failed": "Could not run preview right now.",
+        "citizen_submit_progress": "Classifying the complaint and routing it to the right department...",
     },
 
     "hi": {
@@ -253,7 +315,6 @@ MESSAGES = {
         "sign_in": "लॉग इन करें",
         "register": "पंजीकरण",
         "sign_out": "लॉग आउट",
-        "lang_selector": "भाषा / Language",
         "welcome": "स्वागत है",
         "verified_citizen": "सत्यापित नागरिक",
         "citizen_services_portal": "नागरिक सेवा पोर्टल",
@@ -434,6 +495,26 @@ MESSAGES = {
         "profile_encryption": "सुरक्षा एन्क्रिप्शन",
         "profile_encryption_val": "SHA-256 JWT टोकन सक्रिय",
 
+        # Admin Dashboard
+        "admin_console_title": "प्रशासक कंसोल",
+        "admin_console_sub": "शिकायतों, विभागों और सार्वजनिक रिपोर्टों का प्रबंधन करें",
+        "admin_gis_title": "जीआईएस अवलोकन",
+        "admin_gis_sub": "शिकायतों, प्राथमिकताओं और समाधान की प्रगति का लाइव दृश्य",
+        "admin_priority_queue": "प्राथमिकता कतार",
+        "admin_priority_queue_sub": "प्राथमिकता के अनुसार क्रमबद्ध, कार्रवाई योग्य शिकायतें",
+        "admin_smart_class_title": "स्मार्ट वर्गीकरण",
+        "admin_smart_class_sub": "एआई वर्गीकरण और शिकायत की प्राथमिकता की समीक्षा करें",
+        "admin_total": "कुल शिकायतें",
+        "admin_awaiting": "कार्रवाई की प्रतीक्षा",
+        "admin_in_prog": "प्रगति पर",
+        "admin_high_priority": "उच्च प्राथमिकता",
+        "admin_res_rate": "समाधान दर",
+        "admin_chart_daily": "दैनिक शिकायतें",
+        "admin_chart_cat": "श्रेणी के अनुसार शिकायतें",
+        "admin_reg": "पंजीकृत शिकायतें",
+        "admin_open": "खुली शिकायतें",
+        "admin_critical_urg": "गंभीर / अति आवश्यक",
+
         # Authority Dashboard
         "auth_dept_total": "विभागीय कुल",
         "auth_pending_review": "समीक्षा की प्रतीक्षा",
@@ -474,15 +555,58 @@ MESSAGES = {
         "auth_id_reveal": "4. पहचान प्रकटीकरण अनुरोध",
         "auth_btn_req_identity": "पहचान सत्यापन अनुरोध करें",
         "auth_id_dispatched": "नागरिक को पहचान प्रकटीकरण अनुरोध भेज दिया गया।",
-        "auth_action_title": "शिकायत कार्रवाई व निस्तारण कार्यक्षेत्र",
-        "auth_action_sub": "जांच प्रगति अपडेट करें, फील्ड नोट्स लॉग करें और समाधान प्रमाण अपलोड करें",
+        "auth_department_welcome": "स्वागत है, {name} · {department}",
+        "auth_officer_default": "विभागीय अधिकारी",
+        "auth_department_default": "विभाग",
+        "auth_error_prefix": "त्रुटि:",
+        "auth_nav_queue": "📋 विभागीय कतार",
+        "auth_nav_actions": "🔧 कार्रवाई व समाधान",
+        "auth_queue_error": "विभागीय कतार लोड नहीं हो सकी।",
+        "auth_workbench_error": "समाधान कार्यक्षेत्र लोड नहीं हो सका।",
+        "auth_filter_status": "स्थिति",
+        "auth_filter_priority": "प्राथमिकता",
+        "auth_filter_all": "सभी",
+        "auth_urgency_critical": "गंभीर",
+        "auth_urgency_urgent": "अति आवश्यक",
+        "auth_urgency_normal": "सामान्य",
+        "auth_queue_count": "{count} शिकायतें दिखाई जा रही हैं",
+        "auth_queue_order": "शिकायतें प्राथमिकता, स्कोर और दर्ज होने की तारीख के अनुसार हैं; निस्तारित शिकायतें अंत में हैं।",
+        "auth_status_pending": "लंबित",
+        "auth_status_seen": "देखी गई",
+        "auth_status_in_progress": "प्रगति पर",
+        "auth_status_resolved": "निस्तारित",
+        "auth_status_sequence_hint": "स्थिति क्रम से ही बदली जा सकती है।",
+        "auth_status_final": "यह शिकायत पहले ही निस्तारित हो चुकी है।",
+        "auth_status_saving": "स्थिति अपडेट की जा रही है...",
+        "auth_note_placeholder": "निरीक्षण टिप्पणी लिखें",
+        "auth_note_saving": "निरीक्षण टिप्पणी सहेजी जा रही है...",
+        "auth_note_saved": "निरीक्षण टिप्पणी जोड़ दी गई।",
+        "auth_note_failed": "निरीक्षण टिप्पणी नहीं जोड़ी जा सकी।",
+        "auth_note_empty_error": "जमा करने से पहले टिप्पणी लिखें।",
+        "auth_resolution_placeholder": "पूरे किए गए मरम्मत कार्य का विवरण दें।",
+        "auth_evidence_uploading": "समाधान प्रमाण सहेजा जा रहा है...",
+        "auth_evidence_failed": "समाधान प्रमाण सहेजा नहीं जा सका।",
+        "auth_identity_request_explainer": "यह शिकायत गुमनाम रूप से दर्ज की गई थी। स्थल तक पहुंच के लिए आवश्यक होने पर ही नागरिक की पहचान का अनुरोध करें।",
+        "auth_identity_requested": "नागरिक को पहचान अनुरोध भेज दिया गया है।",
+        "auth_identity_failed": "पहचान अनुरोध नहीं भेजा जा सका।",
+        "auth_verify_credentials": "लॉगिन विवरण सत्यापित किए जा रहे हैं...",
+        "auth_welcome_back": "वापस स्वागत है, {name}!",
+        "auth_signin_failed": "लॉग इन विफल:",
+        "auth_create_citizen_profile": "नागरिक प्रोफ़ाइल बनाई जा रही है...",
+        "auth_account_created": "खाता सफलतापूर्वक बन गया! आगे बढ़ रहे हैं...",
+        "auth_registration_failed": "पंजीकरण विफल:",
+        "auth_authority_credentials": "कृपया विभागीय अधिकारी के लॉगिन विवरण दर्ज करें।",
+        "auth_authority_connecting": "विभागीय शिकायत नेटवर्क से जोड़ा जा रहा है...",
+        "citizen_ai_evaluating": "श्रेणी, भावना और प्राथमिकता का एआई विश्लेषण किया जा रहा है...",
+        "citizen_ai_preview_failed": "अभी पूर्वावलोकन नहीं किया जा सका।",
+        "citizen_submit_progress": "शिकायत का वर्गीकरण करके संबंधित विभाग को भेजा जा रहा है...",
     }
 }
 
 
 def get_lang() -> str:
-    """Get active language code ('en' or 'hi'). Default is 'en'."""
-    return st.session_state.get("language", "en")
+    """Return the application's fixed language."""
+    return "en"
 
 
 def t(key: str) -> str:
@@ -491,20 +615,18 @@ def t(key: str) -> str:
     return MESSAGES.get(lang, MESSAGES["en"]).get(key, MESSAGES["en"].get(key, key))
 
 
-def render_language_selector():
-    """Render language switcher dropdown in top bar."""
-    curr_lang = get_lang()
-    options = ["English", "हिंदी (Hindi)"]
-    curr_idx = 1 if curr_lang == "hi" else 0
-    
-    sel = st.selectbox(
-        "🌐 Language / भाषा",
-        options,
-        index=curr_idx,
-        key="lang_switcher_select",
-        label_visibility="collapsed",
-    )
-    new_lang = "hi" if "हिंदी" in sel else "en"
-    if new_lang != curr_lang:
-        st.session_state["language"] = new_lang
-        st.rerun()
+def translate_department(department: str) -> str:
+    """Translate known department names while preserving unknown names and acronyms."""
+    if get_lang() != "hi":
+        return department
+    translations = {
+        "Water Board": "जल बोर्ड",
+        "CEB": "विद्युत बोर्ड",
+        "RDA": "सड़क विकास प्राधिकरण",
+        "Municipal Council": "नगर परिषद",
+        "Police Safety": "पुलिस सुरक्षा विभाग",
+        "Disaster Management": "आपदा प्रबंधन विभाग",
+        "Public Works Department": "लोक निर्माण विभाग",
+        "Department": "विभाग",
+    }
+    return translations.get(department, department)

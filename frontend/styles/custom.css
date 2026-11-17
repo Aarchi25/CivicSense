@@ -502,39 +502,6 @@ html {
     margin-top: 0.2rem;
 }
 
-/* ── Photo Comparison (Before / After Evidence) ────────────── */
-.photo-compare-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin: 1rem 0;
-}
-
-.photo-box {
-    border-radius: 12px;
-    border: 1px solid var(--card-border);
-    overflow: hidden;
-    background: #f8fafc;
-    text-align: center;
-    padding: 0.5rem;
-}
-
-.photo-box img {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-.photo-label {
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    margin-top: 0.4rem;
-    letter-spacing: 0.05em;
-}
-
 /* ── Status Badges & Chips ────────────────────────────────── */
 .badge-status {
     display: inline-flex;

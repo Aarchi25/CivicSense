@@ -121,6 +121,7 @@ class TokenResponse(BaseModel):
     role: str
     name: str
     user_id: str
+    department: Optional[str] = None
 
 
 # ════════════════════════════════════════════════════════════

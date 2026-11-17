@@ -5,7 +5,7 @@ Displays the portal introduction, service features, workflow, and account entry 
 """
 
 import streamlit as st
-from frontend.i18n import t, render_language_selector, get_lang
+from frontend.i18n import t
 
 
 def render_public_home():
@@ -41,7 +41,7 @@ def render_public_home():
         )
 
     with top_col3:
-        btn_c1, btn_c2, btn_c3 = st.columns([1, 1, 1.2])
+        btn_c1, btn_c2 = st.columns(2)
         with btn_c1:
             if st.button(t("sign_in"), key="top_signin_btn", use_container_width=True):
                 st.session_state["view"] = "auth"
@@ -52,9 +52,6 @@ def render_public_home():
                 st.session_state["view"] = "auth"
                 st.session_state["auth_tab"] = "register"
                 st.rerun()
-        with btn_c3:
-            render_language_selector()
-
     st.markdown("<hr style='margin: 0.5rem 0 1.25rem 0; border: none; border-top: 1px solid #e2e8f0;'>", unsafe_allow_html=True)
 
     # ── Main Hero Section ──────────────────────────────────────
