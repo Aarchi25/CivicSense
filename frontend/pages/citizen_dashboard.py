@@ -310,36 +310,7 @@ def _render_submit_complaint():
             key="submit_img_uploader",
         )
 
-        # Whistleblower mode
-        is_anon = st.checkbox(
-            t("anon_label"),
-            value=False,
-            help=t("anon_help"),
-        )
-
-        # Live AI Preview Expander
-        with st.expander(f"🔮 {t('ai_preview_title')}"):
-            test_desc = desc.strip() if desc.strip() else f"{cat_system_name}: {selected_sub_issue}"
-            if st.button(t("ai_preview_btn"), key="btn_run_ai_preview"):
-                with st.spinner(t("citizen_ai_evaluating")):
-                    preview_res = api_client.preview_complaint_ai(
-                        description=test_desc,
-                        category=cat_system_name,
-                        anonymous=is_anon,
-                    )
-                if preview_res and not preview_res.get("error"):
-                    p_cols = st.columns(4)
-                    with p_cols[0]:
-                        st.metric(t("lbl_category"), preview_res.get("category", cat_system_name))
-                    with p_cols[1]:
-                        st.metric(t("lbl_urgency"), preview_res.get("urgencyLevel", "Normal"))
-                    with p_cols[2]:
-                        st.metric(t("lbl_score"), f"{float(preview_res.get('urgencyScore', 0.5))*100:.0f}/100")
-                    with p_cols[3]:
-                        st.metric(t("lbl_department"), preview_res.get("assignedAuthority", "Municipal"))
-                    st.caption(f"{t('lbl_category')} AI Summary: {preview_res.get('summary', '')}")
-                else:
-                    st.warning(t("citizen_ai_preview_failed"))
+        is_anon = False
 
         sub_btn = st.button(t("btn_submit_complaint"), type="primary", use_container_width=True)
 

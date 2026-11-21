@@ -203,6 +203,7 @@ async def seed():
                 "urgencyScore": urgency_score,
                 "urgencyLevel": urgency_level,
                 "assignedAuthority": assigned,
+                "departmentAssigned": False,
                 "status": ["pending", "seen", "in_progress", "resolved"][i % 4],
                 "anonymous": comp["anonymous"],
                 "citizenId": cit_id,

@@ -1,5 +1,7 @@
 """CivicSense administrator console."""
 
+from html import escape
+
 import pandas as pd
 import streamlit as st
 
@@ -61,7 +63,7 @@ def _render_complaints():
             <div>ID</div>
             <div>COMPLAINT TEXT</div>
             <div>CATEGORY</div>
-            <div>CONFIDENCE</div>
+            <div>DEPARTMENT</div>
             <div>TIMESTAMP</div>
             <div>STATUS</div>
         </div>
@@ -71,13 +73,16 @@ def _render_complaints():
 
     for complaint in prioritized:
         complaint_id = complaint.get("id", "")
-        description = complaint.get("description", "")
+        description = str(complaint.get("description", ""))
+        complaint_preview = escape(
+            description[:65] + ("..." if len(description) > 65 else "")
+        )
+        department = escape(str(complaint.get("assignedAuthority") or "Unassigned"))
         urgency = complaint.get("urgencyLevel", "Normal")
         try:
             priority_score = float(complaint.get("urgencyScore", 0) or 0)
         except (TypeError, ValueError):
             priority_score = 0.0
-        confidence = int(complaint.get("confidence", 0.8) * 100)
         urgency_badge = (
             f"<span class='badge-urgency urgency-{urgency.lower()}' "
             f"style='margin-left: 6px;'>{urgency}</span>"
@@ -88,16 +93,11 @@ def _render_complaints():
             <div class="table-complaint-row">
                 <div style="font-weight: 700; color: #1d4ed8;">#{complaint_id[-6:].upper()}</div>
                 <div>
-                    <div style="font-weight: 600; color: #0f172a;">{description[:65]}{"..." if len(description) > 65 else ""}</div>
+                    <div style="font-weight: 600; color: #0f172a;">{complaint_preview}</div>
                     <div>{urgency_badge} <span style="font-size: 0.75rem; color: #334155;">Score {priority_score:.2f}</span></div>
                 </div>
                 <div>{_category_badge(complaint.get("category", "General"))}</div>
-                <div>
-                    <span style="font-weight: 700; font-size: 0.8rem;">{confidence}%</span>
-                    <div class="conf-bar-wrapper">
-                        <div class="conf-bar-fill" style="width: {confidence}%;"></div>
-                    </div>
-                </div>
+                <div>{department}</div>
                 <div style="color: #64748b; font-size: 0.78rem;">{str(complaint.get("createdAt", ""))[:16]}</div>
                 <div>{_status_badge(complaint.get("status", "pending"))}</div>
             </div>
@@ -109,13 +109,24 @@ def _render_complaints():
 def _render_department_assignment():
     st.markdown("<h4>Department Assignment</h4>", unsafe_allow_html=True)
 
+    success_message = st.session_state.pop("department_assignment_success", None)
+    if success_message:
+        st.success(success_message)
+
     complaints = api_client.get_all_complaints_admin(sort_by="priority")
     if not isinstance(complaints, list):
         detail = complaints.get("detail", "Unable to load complaint records.") if isinstance(complaints, dict) else "Unable to load complaint records."
         st.error(f"Department assignment unavailable: {detail}")
         return
+
+    complaints = [
+        complaint
+        for complaint in complaints
+        if str(complaint.get("status", "")).strip().lower() == "pending"
+        and not complaint.get("departmentAssigned", False)
+    ]
     if not complaints:
-        st.info("No complaints to assign.")
+        st.info("No pending, unassigned complaints to assign.")
         return
 
     departments = [
@@ -143,7 +154,7 @@ def _render_department_assignment():
     if st.button("Save Department", type="primary"):
         result = api_client.reassign_complaint(complaint.get("id"), department)
         if isinstance(result, dict) and not result.get("error"):
-            st.success(f"Complaint assigned to {department}.")
+            st.session_state["department_assignment_success"] = "Department assigned successfully."
             st.rerun()
         else:
             detail = result.get("detail", "Unable to update the department.") if isinstance(result, dict) else "Unable to update the department."

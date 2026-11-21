@@ -3,6 +3,7 @@ CivicSense – Urgency scoring service.
 
 Formula:
   urgency = (sentiment × 0.3) + (confidence × 0.2) + (hazard_keyword × 0.4) + (trust × 0.1)
+  High hazard severity floors the score at 0.7; extreme severity floors it at 0.9.
 
 Levels:
   Critical  >= 0.9
@@ -22,6 +23,7 @@ HAZARD_KEYWORDS: dict[str, float] = {
     "collapse": 1.0,
     "death": 1.0,
     "killed": 1.0,
+    "critical": 1.0,
     "life-threatening": 1.0,
     # High (0.85)
     "flood": 0.85,
@@ -31,6 +33,8 @@ HAZARD_KEYWORDS: dict[str, float] = {
     "cyclone": 0.85,
     "tsunami": 0.85,
     "drowning": 0.85,
+    "emergency": 0.85,
+    "urgent": 0.85,
     # Moderate-High (0.7)
     "accident": 0.7,
     "injury": 0.7,
@@ -46,9 +50,6 @@ HAZARD_KEYWORDS: dict[str, float] = {
     "unsafe": 0.5,
     "broken": 0.5,
     "damaged": 0.5,
-    "emergency": 0.5,
-    "urgent": 0.5,
-    "critical": 0.5,
     # Low (0.3)
     "pothole": 0.3,
     "blocked": 0.3,
@@ -87,6 +88,10 @@ def compute_urgency(
         + hazard * 0.4
         + trust * 0.1
     )
+    if hazard >= 0.9:
+        score = max(score, 0.9)
+    elif hazard >= 0.7:
+        score = max(score, 0.7)
     score = round(min(score, 1.0), 4)
 
     if score >= 0.9:

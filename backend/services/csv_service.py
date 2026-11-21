@@ -102,6 +102,7 @@ async def process_csv(
                 "urgencyScore": urgency_score,
                 "urgencyLevel": urgency_level,
                 "assignedAuthority": assigned,
+                "departmentAssigned": False,
                 "status": "pending",
                 "anonymous": True,
                 "citizenId": "",

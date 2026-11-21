@@ -199,6 +199,7 @@ async def submit_complaint(
         "urgencyScore": urgency_score,
         "urgencyLevel": urgency_level,
         "assignedAuthority": assigned,
+        "departmentAssigned": False,
         "status": "pending",
         "anonymous": anonymous,
         "citizenId": current_user["user_id"],

@@ -7,12 +7,14 @@ from datetime import datetime, timezone
 
 from bson import ObjectId
 from fastapi import APIRouter, HTTPException, Depends, UploadFile, File, Query
+from pymongo import UpdateOne
 
 from backend.database import get_db
 from backend.core.security import require_admin, hash_password
 from backend.models.schemas import AuthorityCreate, AuthorityOut
 from backend.services.csv_service import process_csv
 from backend.services.priority_service import priority_sort_pipeline
+from backend.services.urgency_service import compute_urgency
 from pydantic import BaseModel
 
 class AssignDepartmentRequest(BaseModel):
@@ -108,12 +110,38 @@ async def get_all_complaints(
             detail="sort_by must be 'priority', 'urgencyScore', or 'createdAt'.",
         )
     results = []
+    urgency_updates = []
     async for doc in cursor:
+        urgency_score, urgency_level = compute_urgency(
+            float(doc.get("sentiment") or 0),
+            float(doc.get("confidence") or 0),
+            str(doc.get("description") or ""),
+            bool(doc.get("anonymous", False)),
+        )
+        if (
+            float(doc.get("urgencyScore") or 0) != urgency_score
+            or doc.get("urgencyLevel") != urgency_level
+        ):
+            urgency_updates.append(
+                UpdateOne(
+                    {"_id": doc["_id"]},
+                    {
+                        "$set": {
+                            "urgencyScore": urgency_score,
+                            "urgencyLevel": urgency_level,
+                        }
+                    },
+                )
+            )
+        doc["urgencyScore"] = urgency_score
+        doc["urgencyLevel"] = urgency_level
         doc["id"] = str(doc.pop("_id"))
         for note in doc.get("notes", []):
             if isinstance(note.get("createdAt"), datetime):
                 note["createdAt"] = note["createdAt"].isoformat()
         results.append(doc)
+    if urgency_updates:
+        await db.complaints.bulk_write(urgency_updates, ordered=False)
     return results
 
 
@@ -127,7 +155,12 @@ async def assign_department(
     db = get_db()
     result = await db.complaints.update_one(
         {"_id": ObjectId(complaint_id)},
-        {"$set": {"assignedAuthority": body.assignedAuthority}},
+        {
+            "$set": {
+                "assignedAuthority": body.assignedAuthority,
+                "departmentAssigned": True,
+            }
+        },
     )
     if result.matched_count == 0:
         raise HTTPException(status_code=404, detail="Complaint not found")
