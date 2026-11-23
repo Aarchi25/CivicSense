@@ -45,9 +45,9 @@ def render_admin_dashboard():
         _render_authority_and_users()
 
 
-@st.fragment(run_every="5s")
 def _render_complaints():
     st.markdown("<h4>Complaints</h4>", unsafe_allow_html=True)
+    st.button("Refresh complaints", key="admin_refresh_complaints", icon="🔄")
     complaints = api_client.get_all_complaints_admin()
     if not isinstance(complaints, list):
         detail = complaints.get("detail", "Unable to load complaint records.") if isinstance(complaints, dict) else "Unable to load complaint records."
@@ -58,7 +58,7 @@ def _render_complaints():
         return
 
     prioritized = sort_complaints_by_priority(complaints)
-    st.caption(f"Showing all {len(prioritized)} complaints. Status refreshes every 5 seconds.")
+    st.caption(f"Showing all {len(prioritized)} complaints.")
     st.markdown(
         """
         <div class="table-complaint-row table-complaint-header">
@@ -113,9 +113,9 @@ def _render_complaints():
             st.write("Status:", str(complaint.get("status", "pending")).replace("_", " ").title())
 
 
-@st.fragment(run_every="5s")
 def _render_department_assignment():
     st.markdown("<h4>Department Assignment</h4>", unsafe_allow_html=True)
+    st.button("Refresh complaints", key="admin_refresh_assignments", icon="🔄")
 
     success_message = st.session_state.pop("department_assignment_success", None)
     if success_message:

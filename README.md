@@ -1,4 +1,4 @@
-# 🏙️ CivicSense – AI-Powered Civic Complaint Management System
+# 🏙️ CivicSense – Intelligent Civic Complaint Management System
 
 CivicSense is an intelligent civic complaint management platform designed to streamline the reporting, classification, tracking, and resolution of public grievances. It leverages AI-based classification and urgency detection to improve complaint handling and coordination between citizens, authorities, and administrators.
 

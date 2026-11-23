@@ -87,10 +87,9 @@ def render_citizen_dashboard():
 # ════════════════════════════════════════════════════════════════
 #  1. Overview
 # ════════════════════════════════════════════════════════════════
-@st.fragment(run_every="5s")
 def _render_overview():
     render_section_title(t("overview_heading"), t("overview_sub"))
-    st.caption("Complaint status refreshes every 5 seconds.")
+    st.button("Refresh complaint status", key="citizen_refresh_overview", icon="🔄")
 
     # Fetch citizen's complaints
     res = api_client.get_my_complaints()
@@ -380,11 +379,10 @@ def _render_submit_complaint():
 # ════════════════════════════════════════════════════════════════
 #  3. My Complaints
 # ════════════════════════════════════════════════════════════════
-@st.fragment(run_every="5s")
 def _render_my_complaints():
     is_hi = get_lang() == "hi"
     render_section_title(t("my_comp_title"), t("my_comp_sub"))
-    st.caption("Complaint status refreshes every 5 seconds.")
+    st.button("Refresh complaints", key="citizen_refresh_list", icon="🔄")
 
     res = api_client.get_my_complaints()
     complaints = res if isinstance(res, list) else []
@@ -417,11 +415,10 @@ def _render_my_complaints():
 # ════════════════════════════════════════════════════════════════
 #  4. Track Complaint (Matching Image 5)
 # ════════════════════════════════════════════════════════════════
-@st.fragment(run_every="5s")
 def _render_track_complaint():
     is_hi = get_lang() == "hi"
     render_section_title(t("track_title"), t("track_sub"))
-    st.caption("Complaint status refreshes every 5 seconds.")
+    st.button("Refresh complaint status", key="citizen_refresh_track", icon="🔄")
 
     res = api_client.get_my_complaints()
     complaints = res if isinstance(res, list) else []
@@ -597,11 +594,10 @@ def _render_ai_assistant():
 # ════════════════════════════════════════════════════════════════
 #  6. Notifications
 # ════════════════════════════════════════════════════════════════
-@st.fragment(run_every="5s")
 def _render_notifications():
     is_hi = get_lang() == "hi"
     render_section_title(t("notif_title"), t("notif_sub"))
-    st.caption("Complaint status refreshes every 5 seconds.")
+    st.button("Refresh notifications", key="citizen_refresh_notifications", icon="🔄")
 
     res = api_client.get_my_complaints()
     complaints = res if isinstance(res, list) else []
