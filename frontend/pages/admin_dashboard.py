@@ -45,6 +45,7 @@ def render_admin_dashboard():
         _render_authority_and_users()
 
 
+@st.fragment(run_every="5s")
 def _render_complaints():
     st.markdown("<h4>Complaints</h4>", unsafe_allow_html=True)
     complaints = api_client.get_all_complaints_admin()
@@ -57,6 +58,7 @@ def _render_complaints():
         return
 
     prioritized = sort_complaints_by_priority(complaints)
+    st.caption(f"Showing all {len(prioritized)} complaints. Status refreshes every 5 seconds.")
     st.markdown(
         """
         <div class="table-complaint-row table-complaint-header">
@@ -70,7 +72,6 @@ def _render_complaints():
         """,
         unsafe_allow_html=True,
     )
-
     for complaint in prioritized:
         complaint_id = complaint.get("id", "")
         description = str(complaint.get("description", ""))
@@ -104,8 +105,15 @@ def _render_complaints():
             """,
             unsafe_allow_html=True,
         )
+        with st.expander(f"Full complaint details — #{complaint_id[-6:].upper()}"):
+            st.write("Description:", description or "No description provided.")
+            st.write("Location:", complaint.get("location", "Not specified"))
+            st.write("Category:", complaint.get("category", "General"))
+            st.write("Department:", complaint.get("assignedAuthority") or "Unassigned")
+            st.write("Status:", str(complaint.get("status", "pending")).replace("_", " ").title())
 
 
+@st.fragment(run_every="5s")
 def _render_department_assignment():
     st.markdown("<h4>Department Assignment</h4>", unsafe_allow_html=True)
 

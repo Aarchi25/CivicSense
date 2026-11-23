@@ -104,6 +104,15 @@ class AdminLogin(BaseModel):
     password: str
 
 
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr
+
+
+class ResetPasswordRequest(BaseModel):
+    token: str = Field(..., min_length=20)
+    password: str = Field(..., min_length=6, max_length=128)
+
+
 class AdminOut(BaseModel):
     id: str
     name: str

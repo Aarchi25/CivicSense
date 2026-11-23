@@ -93,6 +93,18 @@ def get_citizen_profile():
     return _safe_request("GET", "/api/citizens/me", headers=_headers())
 
 
+def forgot_password(email: str):
+    return _safe_request("POST", "/api/auth/forgot-password", json={"email": email})
+
+
+def reset_password(token: str, password: str):
+    return _safe_request(
+        "POST",
+        "/api/auth/reset-password",
+        json={"token": token, "password": password},
+    )
+
+
 # ════════════════════════════════════════════════════════════
 #  Complaints
 # ════════════════════════════════════════════════════════════

@@ -296,7 +296,7 @@ def render_complaint_card(complaint: dict, show_summary: bool = True):
             f"{lbl_score}: {priority_score:.2f}</span>"
         )
 
-    desc_display = escape(description[:160] + "..." if len(description) > 160 else description)
+    desc_display = escape(description)
     summary_html = (
         f'<div style="font-size: 0.82rem; color: #4338ca; background: #e0e7ff; padding: 4px 8px; border-radius: 6px; margin: 0.4rem 0;">💡 <b>{lbl_summary}</b> {escape(summary)}</div>'
         if show_summary and summary
@@ -308,7 +308,7 @@ def render_complaint_card(complaint: dict, show_summary: bool = True):
         f'<h4 style="margin: 3px 0; color: #0f172a; font-size: 1.05rem;">📍 {escape(location)}</h4>'
         f'</div><div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">{_urgency_badge(urgency)}'
         f'{_status_badge(status)}{priority_html}</div></div>'
-        f'<p style="color: #334155; font-size: 0.9rem; line-height: 1.5; margin: 0.4rem 0;">{desc_display}</p>'
+        f'<p style="color: #334155; font-size: 0.9rem; line-height: 1.5; margin: 0.4rem 0; white-space: pre-wrap;">{desc_display}</p>'
         f'{summary_html}'
         '<div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 0.6rem;">'
         f'{_category_badge(category)}{_anonymous_badge(anonymous)}'

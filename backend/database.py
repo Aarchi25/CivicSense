@@ -48,6 +48,8 @@ async def connect_db() -> None:
     await _db.authorities.create_index("email", unique=True)
     await _db.communities.create_index("name", unique=True)
     await _db.admins.create_index("email", unique=True)
+    await _db.password_resets.create_index("expiresAt", expireAfterSeconds=0)
+    await _db.password_resets.create_index("tokenHash", unique=True)
 
 async def close_db() -> None:
     """Gracefully close the MongoDB connection."""

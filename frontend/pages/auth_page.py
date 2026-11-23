@@ -75,6 +75,25 @@ def render_auth_page():
     _, center_col, _ = st.columns([1, 2, 1])
 
     with center_col:
+        reset_token = st.query_params.get("reset_token")
+        if reset_token:
+            st.markdown("### Set a new password")
+            new_password = st.text_input("New password", type="password", key="reset_password")
+            confirm_password = st.text_input("Confirm new password", type="password", key="reset_password_confirm")
+            if st.button("Reset Password", key="reset_password_submit", use_container_width=True):
+                if len(new_password) < 6:
+                    st.error("Password must be at least 6 characters.")
+                elif new_password != confirm_password:
+                    st.error("Passwords do not match.")
+                else:
+                    result = api_client.reset_password(reset_token, new_password)
+                    if result and not result.get("error"):
+                        st.success(result.get("message", "Password reset successfully."))
+                        st.query_params.clear()
+                    else:
+                        st.error((result or {}).get("detail", "Unable to reset password"))
+            st.stop()
+
         # ════════════════════════════════════════════════════════════
         #  1. Citizen Flow (Login, Register, Forgot Password)
         # ════════════════════════════════════════════════════════════
@@ -161,7 +180,11 @@ def render_auth_page():
                 f_email = st.text_input(t("email_label"), placeholder="citizen@example.com", key="f_email")
                 if st.button(t("btn_reset"), key="f_submit", use_container_width=True):
                     if f_email:
-                        st.info(f"Verification link sent to {f_email}. Check your inbox or contact the municipal helpline at 1990." if get_lang() == "en" else f"सत्यापन लिंक {f_email} पर भेजा गया। अपना इनबॉक्स देखें या हेल्पलाइन 1990 पर संपर्क करें।")
+                        result = api_client.forgot_password(f_email.strip())
+                        if result and not result.get("error"):
+                            st.success(result.get("message", "If an account exists, a password reset link has been sent."))
+                        else:
+                            st.error((result or {}).get("detail", "Unable to request a password reset"))
                     else:
                         st.error("Please enter your registered email address." if get_lang() == "en" else "कृपया अपना पंजीकृत ईमेल पता दर्ज करें।")
 

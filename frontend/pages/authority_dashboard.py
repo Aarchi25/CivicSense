@@ -73,6 +73,7 @@ def render_authority_dashboard():
 # ════════════════════════════════════════════════════════════════
 #  1. Department Queue
 # ════════════════════════════════════════════════════════════════
+@st.fragment(run_every="5s")
 def _render_department_queue():
     # Fetch complaints
     res = api_client.get_authority_complaints(sort_by="priority")
@@ -106,6 +107,7 @@ def _render_department_queue():
     st.markdown("<br>", unsafe_allow_html=True)
 
     # Search and Filter
+    st.caption("Complaint status refreshes every 5 seconds.")
     f_c1, f_c2, f_c3 = st.columns([2, 1, 1])
     with f_c1:
         sq = st.text_input(t("auth_search_label"), placeholder=t("auth_search_ph"))
@@ -146,6 +148,7 @@ def _render_department_queue():
 # ════════════════════════════════════════════════════════════════
 #  2. Action & Resolution (Status update, Notes, Evidence)
 # ════════════════════════════════════════════════════════════════
+@st.fragment(run_every="5s")
 def _render_action_and_resolution():
     res = api_client.get_authority_complaints(sort_by="priority")
     if not isinstance(res, list):
@@ -158,17 +161,19 @@ def _render_action_and_resolution():
         st.info(t("auth_no_complaints"))
         return
 
-    selected_index = st.selectbox(
+    st.caption("Complaint status refreshes every 5 seconds.")
+    complaints_by_id = {str(complaint.get("id")): complaint for complaint in complaints}
+    selected_complaint_id = st.selectbox(
         t("auth_sel_grievance"),
-        range(len(complaints)),
-        format_func=lambda index: (
-            "{} · {}".format(
-                complaints[index].get("location", ""),
-                t("auth_status_" + complaints[index].get("status", "pending")),
+        list(complaints_by_id),
+        format_func=lambda complaint_id: (
+            "{} · #{}".format(
+                complaints_by_id[complaint_id].get("location", ""),
+                complaint_id[-6:].upper(),
             )
         ),
     )
-    comp = complaints[selected_index]
+    comp = complaints_by_id[selected_complaint_id]
     cid = comp.get("id")
     current_status = comp.get("status", "pending")
 

@@ -112,6 +112,24 @@ it out**, and submit the bootstrap email and password:
 A successful login returns an access token and admin details. If login returns
 401, confirm the `.env` values and restart the backend.
 
+### Configure Password-Reset Email
+
+Copy `.env.example` values into `.env` and add a valid SMTP account:
+
+```env
+FRONTEND_BASE_URL=http://localhost:8501
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USERNAME=your-email@gmail.com
+SMTP_PASSWORD=replace-with-google-app-password
+SMTP_FROM_EMAIL=your-email@gmail.com
+SMTP_USE_TLS=true
+PASSWORD_RESET_EXPIRE_MINUTES=30
+```
+
+For Gmail, enable 2-Step Verification and create a Google App Password. Do not
+use the account's normal password. Restart FastAPI after changing `.env`.
+
 ### 3. Start the Streamlit Frontend
 ```bash
 # Start Streamlit application (port 8501)

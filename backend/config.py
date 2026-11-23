@@ -24,7 +24,17 @@ class Settings(BaseSettings):
 
     # App
     api_base_url: str = Field(default="http://localhost:8000")
+    frontend_base_url: str = Field(default="http://localhost:8501")
     max_image_size_mb: int = Field(default=5)
+
+    # Password-reset email (SMTP)
+    smtp_host: str = Field(default="")
+    smtp_port: int = Field(default=587)
+    smtp_username: str = Field(default="")
+    smtp_password: str = Field(default="")
+    smtp_from_email: str = Field(default="")
+    smtp_use_tls: bool = Field(default=True)
+    password_reset_expire_minutes: int = Field(default=30)
 
     # Initial admin bootstrap
     bootstrap_admin_name: str = "CivicSense Admin"
